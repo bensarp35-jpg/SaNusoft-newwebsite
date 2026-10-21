@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,22 +112,43 @@
             padding: 25px;
             height: 100%;
         }
-        
-        /* Doğrudan site içi oynatılan dikey video (Shorts/Reels ebatı) */
-        .local-video-container {
+        /* YouTube Shorts Dikey Video Alanı (9:16 Oranı) */
+        .video-container {
+            position: relative;
+            padding-bottom: 177.77%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             max-width: 360px;
             margin: 0 auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             background: #000;
         }
-        .local-video-container video {
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            border: 0;
         }
-
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
         /* Sabit WhatsApp Butonu */
         .whatsapp-float {
             position: fixed;
@@ -161,8 +182,8 @@
 </head>
 <body>
 
-    <!-- Sabit WhatsApp Destek Butonu -->
-    <a href="https://wa.me/?text=Merhaba,%20SaNu%20Soft%20POS%20ve%20ERP%20sistemi%20hakkında%20bilgi%20almak%20istiyorum." class="whatsapp-float" target="_blank" title="WhatsApp ile Bilgi Al">
+    <!-- Sabit WhatsApp Destek Butonu (Senin Numaran: 905063626244) -->
+    <a href="https://wa.me/905063626244?text=Merhaba,%20SaNu%20Soft%20POS%20ve%20ERP%20sistemi%20hakkında%20bilgi%20almak%20istiyorum." class="whatsapp-float" target="_blank" title="WhatsApp ile Bilgi Al">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -177,12 +198,22 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#why-us">Neden Biz?</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing">Paketler & Fiyat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#video-intro">Tanıtım Videosu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#guarantee">Güvencelerimiz</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#testimonials">Esnaf Yorumları</a></li>
-                    <li class="nav-item"><button onclick="toggleEcommerceModal()" class="btn btn-sm btn-success ms-lg-3 mt-1 mt-lg-0"><i class="fa-solid fa-circle-info me-1"></i> E-Ticaret Bilgi</button></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-us" data-i18n="nav_why">Neden Biz?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing" data-i18n="nav_pricing">Paketler & Fiyat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#video-intro" data-i18n="nav_video">Tanıtım Videosu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#guarantee" data-i18n="nav_guarantee">Güvencelerimiz</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials" data-i18n="nav_reviews">Esnaf Yorumları</a></li>
+                    <li class="nav-item">
+                        <button onclick="toggleEcommerceModal()" class="btn btn-sm btn-success ms-lg-3 mt-1 mt-lg-0">
+                            <i class="fa-solid fa-circle-info me-1"></i> <span data-i18n="nav_ecommerce_info">E-Ticaret Bilgi</span>
+                        </button>
+                    </li>
+                    <!-- Dil Seçim Butonları -->
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0 d-flex">
+                        <button class="lang-btn active" id="btn-tr" onclick="changeLanguage('tr')">TR</button>
+                        <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
+                        <button class="lang-btn" id="btn-id" onclick="changeLanguage('id')">ID</button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -193,21 +224,21 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7">
-                    <span class="badge bg-success mb-3 px-3 py-2 fs-6">⚡ İnternet Kesintilerine Son Veren Yerli Sistem</span>
-                    <h1 class="display-4 fw-bold mb-3">İnternet Kopsa Bile Satışa Devam Et: Esnafın Güvendiği Yeni Nesil POS</h1>
-                    <p class="lead mb-4">Ağır ve hantal kurumsal programlara fahiş paralar ödemeyin. İnternetten bağımsız çalışan, dükkanınızı cebinizden 7/24 yönetmenizi sağlayan esnaf dostu akıllı çözüm.</p>
-                    <a href="#pricing" class="btn btn-success btn-lg px-4 me-2 mb-2"><i class="fa-solid fa-tags me-2"></i> Paketleri ve Fiyatları İncele</a>
-                    <button onclick="toggleEcommerceModal()" class="btn btn-outline-light btn-lg px-4 mb-2"><i class="fa-solid fa-book-open me-2"></i> Özellik Kılavuzu</button>
+                    <span class="badge bg-success mb-3 px-3 py-2 fs-6" data-i18n="hero_badge">⚡ İnternet Kesintilerine Son Veren Yerli Sistem</span>
+                    <h1 class="display-4 fw-bold mb-3" data-i18n="hero_title">İnternet Kopsa Bile Satışa Devam Et: Esnafın Güvendiği Yeni Nesil POS</h1>
+                    <p class="lead mb-4" data-i18n="hero_desc">Ağır ve hantal kurumsal programlara fahiş paralar ödemeyin. İnternetten bağımsız çalışan, dükkanınızı cebinizden 7/24 yönetmenizi sağlayan esnaf dostu akıllı çözüm.</p>
+                    <a href="#pricing" class="btn btn-success btn-lg px-4 me-2 mb-2"><i class="fa-solid fa-tags me-2"></i> <span data-i18n="hero_btn_pricing">Paketleri ve Fiyatları İncele</span></a>
+                    <button onclick="toggleEcommerceModal()" class="btn btn-outline-light btn-lg px-4 mb-2"><i class="fa-solid fa-book-open me-2"></i> <span data-i18n="hero_btn_guide">Özellik Kılavuzu</span></button>
                 </div>
                 <div class="col-lg-5 text-center mt-5 mt-lg-0">
                     <div class="p-4 bg-white text-dark rounded shadow-lg">
                         <img src="logo.ico" alt="SaNu Soft" style="width: 70px; height: 70px; border-radius: 12px;" class="mb-3 shadow">
                         <h3 class="fw-bold">SaNu Soft POS & ERP</h3>
-                        <p class="text-muted small">Hibrit Mimari & Akıllı Yönetim</p>
+                        <p class="text-muted small" data-i18n="box_subtitle">Hibrit Mimari & Akıllı Yönetim</p>
                         <div>
-                            <span class="tech-badge">İnternetsiz Çalışma</span>
-                            <span class="tech-badge">Cebinden Yönet</span>
-                            <span class="tech-badge">Gizli Maliyet Yok</span>
+                            <span class="tech-badge" data-i18n="badge_offline">İnternetsiz Çalışma</span>
+                            <span class="tech-badge" data-i18n="badge_mobile">Cebinden Yönet</span>
+                            <span class="tech-badge" data-i18n="badge_nomoney">Gizli Maliyet Yok</span>
                         </div>
                     </div>
                 </div>
@@ -220,20 +251,20 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <h3 class="fw-bold text-success"><i class="fa-solid fa-bolt me-1"></i> Hibrit Güç</h3>
-                    <p class="text-muted mb-0">İnternet kopunca kilitlenmez, yerelde çalışır.</p>
+                    <h3 class="fw-bold text-success"><i class="fa-solid fa-bolt me-1"></i> <span data-i18n="stat_1_title">Hibrit Güç</span></h3>
+                    <p class="text-muted mb-0" data-i18n="stat_1_desc">İnternet kopunca kilitlenmez, yerelde çalışır.</p>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <h3 class="fw-bold text-success"><i class="fa-solid fa-mobile-screen me-1"></i> Cep'ten Takip</h3>
-                    <p class="text-muted mb-0">Firebase bildirimleriyle ciro cebinizde.</p>
+                    <h3 class="fw-bold text-success"><i class="fa-solid fa-mobile-screen me-1"></i> <span data-i18n="stat_2_title">Cep'ten Takip</span></h3>
+                    <p class="text-muted mb-0" data-i18n="stat_2_desc">Firebase bildirimleriyle ciro cebinizde.</p>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <h3 class="fw-bold text-success"><i class="fa-solid fa-receipt me-1"></i> Esnaf Uyumlu</h3>
-                    <p class="text-muted mb-0">5.7 cm fiş, sevk irsaliyesi ve stok yönetimi.</p>
+                    <h3 class="fw-bold text-success"><i class="fa-solid fa-receipt me-1"></i> <span data-i18n="stat_3_title">Esnaf Uyumlu</span></h3>
+                    <p class="text-muted mb-0" data-i18n="stat_3_desc">5.7 cm fiş, sevk irsaliyesi ve stok yönetimi.</p>
                 </div>
                 <div class="col-md-3">
-                    <h3 class="fw-bold text-success"><i class="fa-solid fa-shield-halved me-1"></i> Sabit Fiyat</h3>
-                    <p class="text-muted mb-0">Fahiş yıllık aidatlar ve gizli masraf yok.</p>
+                    <h3 class="fw-bold text-success"><i class="fa-solid fa-shield-halved me-1"></i> <span data-i18n="stat_4_title">Sabit Fiyat</span></h3>
+                    <p class="text-muted mb-0" data-i18n="stat_4_desc">Fahiş yıllık aidatlar ve gizli masraf yok.</p>
                 </div>
             </div>
         </div>
@@ -244,56 +275,50 @@
         <section id="why-us" class="py-5 bg-white">
             <div class="container">
                 <div class="text-center mb-5">
-                    <h2 class="fw-bold">Diğer Yazılımlardan Neden Daha İyiyiz?</h2>
-                    <p class="text-muted">Esnafın sahada yaşadığı gerçek sorunlara nokta atışı çözümler getiriyoruz.</p>
+                    <h2 class="fw-bold" data-i18n="why_main_title">Diğer Yazılımlardan Neden Daha İyiyiz?</h2>
+                    <p class="text-muted" data-i18n="why_main_desc">Esnafın sahada yaşadığı gerçek sorunlara nokta atışı çözümler getiriyoruz.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="card feature-card p-4 shadow-sm border-start border-success border-4">
                             <div class="icon-box"><i class="fa-solid fa-wifi"></i></div>
-                            <h4>İnternet Kesintilerine Elveda</h4>
-                            <p class="text-muted">Tamamen buluta bağımlı sistemler internet gittiğinde çöker. Senin sistemin yerel mimarisi sayesinde internet olmasa bile fiş kesmeye devam eder.</p>
+                            <h4 data-i18n="why_1_title">İnternet Kesintilerine Elveda</h4>
+                            <p class="text-muted" data-i18n="why_1_desc">Tamamen buluta bağımlı sistemler internet gittiğinde çöker. Senin sistemin yerel mimarisi sayesinde internet olmasa bile fiş kesmeye devam eder.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card feature-card p-4 shadow-sm border-start border-success border-4">
                             <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
-                            <h4>Sürpriz Maliyet & Aidat Yok</h4>
-                            <p class="text-muted">Büyük firmalar gibi her yıl yenilenen fahiş bakım ücretleri talep etmiyoruz. Bütçenizi yormayan, şeffaf ve sürdürülebilir kullanım sunuyoruz.</p>
+                            <h4 data-i18n="why_2_title">Sürpriz Maliyet & Aidat Yok</h4>
+                            <p class="text-muted" data-i18n="why_2_desc">Büyük firmalar gibi her yıl yenilenen fahiş bakım ücretleri talep etmiyoruz. Bütçenizi yormayan, şeffaf ve sürdürülebilir kullanım sunuyoruz.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card feature-card p-4 shadow-sm border-start border-success border-4">
                             <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
-                            <h4>7/24 Dükkanınız Cebinizde</h4>
-                            <p class="text-muted">Patron dükkanda olmasa bile Firebase push bildirimleri ve web paneli sayesinde anlık ciroyu ve kritik stokları cebinden takip eder.</p>
+                            <h4 data-i18n="why_3_title">7/24 Dükkanınız Cebinizde</h4>
+                            <p class="text-muted" data-i18n="why_3_desc">Patron dükkanda olmasa bile Firebase push bildirimleri ve web paneli sayesinde anlık ciroyu ve kritik stokları cebinden takip eder.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- VİDEO TANITIM BÖLÜMÜ (DOĞRUDAN SİTE İÇİNDE OTOMATİK OYNATILAN VİDEO) -->
+        <!-- VİDEO TANITIM BÖLÜMÜ -->
         <section id="video-intro" class="py-5 bg-light">
             <div class="container">
                 <div class="text-center mb-5">
-                    <span class="badge bg-success px-3 py-2 mb-2">Tanıtım Filmi</span>
-                    <h2 class="fw-bold">SaNu Soft ile İşinizi Kontrol Altına Alın</h2>
-                    <p class="text-muted">İnternet kopsa bile satışların nasıl devam ettiğini ve sistemi hemen izleyin.</p>
+                    <span class="badge bg-success px-3 py-2 mb-2" data-i18n="vid_badge">Tanıtım Filmi</span>
+                    <h2 class="fw-bold" data-i18n="vid_title">SaNu Soft ile İşinizi Kontrol Altına Alın</h2>
+                    <p class="text-muted" data-i18n="vid_desc">İnternet kopsa bile satışların nasıl devam ettiğini ve sistemi hemen izleyin.</p>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="p-3 bg-white rounded shadow-sm border text-center">
-                            
-                            <!-- Doğrudan Site Üzerinden Oynatılan Video Etiketi -->
-                            <div class="local-video-container">
-                                <video autoplay muted loop playsinline controls>
-                                    <source src="tanitim.mp4" type="video/mp4">
-                                    Tarayıcınız video etiketini desteklemiyor.
-                                </video>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/o9Vh2WJTvOI" title="SaNu Soft Tanıtım Videosu" allowfullscreen></iframe>
                             </div>
-
-                            <p class="text-center text-muted small mt-3 mb-0">İnternet Yoksa Bile Satış Devam: SaNu Soft ile işiniz her an kontrol altında.</p>
+                            <p class="text-center text-muted small mt-3 mb-0" data-i18n="vid_caption">İnternet Yoksa Bile Satış Devam: SaNu Soft ile işiniz her an kontrol altında.</p>
                         </div>
                     </div>
                 </div>
@@ -304,9 +329,9 @@
         <section id="pricing" class="py-5 bg-white">
             <div class="container">
                 <div class="text-center mb-5">
-                    <span class="badge bg-success px-3 py-2 mb-2">Esnaf Dostu Çözümler</span>
-                    <h2 class="fw-bold">İşletmenize Uygun Paketi Seçin</h2>
-                    <p class="text-muted">Gizli maliyetler yok, ömürlük lisans ve esnek modül seçenekleri.</p>
+                    <span class="badge bg-success px-3 py-2 mb-2" data-i18n="price_badge">Esnaf Dostu Çözümler</span>
+                    <h2 class="fw-bold" data-i18n="price_main_title">İşletmenize Uygun Paketi Seçin</h2>
+                    <p class="text-muted" data-i18n="price_main_desc">Gizli maliyetler yok, ömürlük lisans ve esnek modül seçenekleri.</p>
                 </div>
                 <div class="row g-4 align-items-center">
                     
@@ -314,66 +339,66 @@
                     <div class="col-lg-4">
                         <div class="pricing-card p-4 d-flex flex-column h-100 shadow-sm">
                             <div class="mb-3">
-                                <h4 class="fw-bold text-dark">Temel Kasa</h4>
-                                <p class="text-muted small">Küçük esnaf ve tek dükkanlar için sade çözüm.</p>
+                                <h4 class="fw-bold text-dark" data-i18n="p1_name">Temel Kasa</h4>
+                                <p class="text-muted small" data-i18n="p1_desc">Küçük esnaf ve tek dükkanlar için sade çözüm.</p>
                             </div>
                             <div class="mb-4">
-                                <span class="fs-3 fw-bold text-primary">Standart</span>
-                                <span class="text-muted small"> / Tek Seferlik Lisans</span>
+                                <span class="fs-3 fw-bold text-primary" data-i18n="p1_price">Standart</span>
+                                <span class="text-muted small" data-i18n="p1_period"> / Tek Seferlik Lisans</span>
                             </div>
                             <ul class="list-unstyled mb-4 flex-grow-1 text-start">
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Masaüstü POS Otomasyonu</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> İnternetsiz Çalışma (Lokal DB)</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> 5.7 cm Termal Fiş Yazdırma</li>
-                                <li class="mb-2 text-muted"><i class="fa-solid fa-xmark text-danger me-2"></i> <del>Mobil Uygulama / Bildirim</del></li>
-                                <li class="mb-2 text-muted"><i class="fa-solid fa-xmark text-danger me-2"></i> <del>Web Paneli & Raporlama</del></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p1_f1">Masaüstü POS Otomasyonu</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p1_f2">İnternetsiz Çalışma (Lokal DB)</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p1_f3">5.7 cm Termal Fiş Yazdırma</span></li>
+                                <li class="mb-2 text-muted"><i class="fa-solid fa-xmark text-danger me-2"></i> <del><span data-i18n="p1_f4">Mobil Uygulama / Bildirim</span></del></li>
+                                <li class="mb-2 text-muted"><i class="fa-solid fa-xmark text-danger me-2"></i> <del><span data-i18n="p1_f5">Web Paneli & Raporlama</span></del></li>
                             </ul>
-                            <a href="https://wa.me/?text=Merhaba,%20Temel%20Kasa%20paketi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2">Bilgi Al / Satın Al</a>
+                            <a href="https://wa.me/905063626244?text=Merhaba,%20Temel%20Kasa%20paketi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2" data-i18n="btn_buy_1">Bilgi Al / Satın Al</a>
                         </div>
                     </div>
 
-                    <!-- 2. PRO DÜKKAN PAKETİ (EN POPÜLER) -->
+                    <!-- 2. PRO DÜKKAN PAKETİ -->
                     <div class="col-lg-4">
                         <div class="pricing-card popular p-4 d-flex flex-column h-100 shadow">
-                            <div class="popular-badge">⭐ En Çok Tercih Edilen</div>
+                            <div class="popular-badge" data-i18n="p2_badge">⭐ En Çok Tercih Edilen</div>
                             <div class="mb-3 mt-2">
-                                <h4 class="fw-bold text-success">Pro Dükkan</h4>
-                                <p class="text-muted small">Orta ölçekli yapı marketler ve depolar için.</p>
+                                <h4 class="fw-bold text-success" data-i18n="p2_name">Pro Dükkan</h4>
+                                <p class="text-muted small" data-i18n="p2_desc">Orta ölçekli yapı marketler ve depolar için.</p>
                             </div>
                             <div class="mb-4">
-                                <span class="fs-3 fw-bold text-success">Önerilen</span>
-                                <span class="text-muted small"> / Profesyonel Paket</span>
+                                <span class="fs-3 fw-bold text-success" data-i18n="p2_price">Önerilen</span>
+                                <span class="text-muted small" data-i18n="p2_period"> / Profesyonel Paket</span>
                             </div>
                             <ul class="list-unstyled mb-4 flex-grow-1 text-start">
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <strong>Temel Kasadaki Her Şey</strong></li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Mobil Uygulama & Firebase Bildirim</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Web Paneli (Canlı Ciro & Z Raporu)</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Kritik Stok Uyarıları & WhatsApp PO</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Anti-Fraud İade Denetimi</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <strong data-i18n="p2_f1">Temel Kasadaki Her Şey</strong></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p2_f2">Mobil Uygulama & Firebase Bildirim</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p2_f3">Web Paneli (Canlı Ciro & Z Raporu)</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p2_f4">Kritik Stok Uyarıları & WhatsApp PO</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p2_f5">Anti-Fraud İade Denetimi</span></li>
                             </ul>
-                            <a href="https://wa.me/?text=Merhaba,%20Pro%20Dükkan%20paketi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-success w-100 fw-bold py-2 shadow-sm">Hemen Başvur / WhatsApp</a>
+                            <a href="https://wa.me/905063626244?text=Merhaba,%20Pro%20Dükkan%20paketi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-success w-100 fw-bold py-2 shadow-sm" data-i18n="btn_buy_2">Hemen Başvur / WhatsApp</a>
                         </div>
                     </div>
 
-                    <!-- 3. TAM EKOSİSTEM / KURUMSAL PAKET -->
+                    <!-- 3. TAM EKOSİSTEM PAKETİ -->
                     <div class="col-lg-4">
                         <div class="pricing-card p-4 d-flex flex-column h-100 shadow-sm">
                             <div class="mb-3">
-                                <h4 class="fw-bold text-dark">Tam Ekosistem</h4>
-                                <p class="text-muted small">Saha takibi ve e-ticaret yapan büyük yapılar.</p>
+                                <h4 class="fw-bold text-dark" data-i18n="p3_name">Tam Ekosistem</h4>
+                                <p class="text-muted small" data-i18n="p3_desc">Saha takibi ve e-ticaret yapan büyük yapılar.</p>
                             </div>
                             <div class="mb-4">
-                                <span class="fs-3 fw-bold text-primary">Kurumsal</span>
-                                <span class="text-muted small"> / Sınırsız Güç</span>
+                                <span class="fs-3 fw-bold text-primary" data-i18n="p3_price">Kurumsal</span>
+                                <span class="text-muted small" data-i18n="p3_period"> / Sınırsız Güç</span>
                             </div>
                             <ul class="list-unstyled mb-4 flex-grow-1 text-start">
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <strong>Pro Paketteki Her Şey</strong></li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Kurye & Saha Sevkiyat Paneli</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> AI Sesli Sipariş & OCR Reçete</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> 3D / AR Ürün Görselleştirme</li>
-                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Öncelikli Teknik Destek</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <strong data-i18n="p3_f1">Pro Paketteki Her Şey</strong></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p3_f2">Kurye & Saha Sevkiyat Paneli</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p3_f3">AI Sesli Sipariş & OCR Reçete</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p3_f4">3D / AR Ürün Görselleştirme</span></li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> <span data-i18n="p3_f5">Öncelikli Teknik Destek</span></li>
                             </ul>
-                            <a href="https://wa.me/?text=Merhaba,%20Tam%20Ekosistem%20kurumsal%20paket%20hakkında%20görüşmek%20istiyorum." target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2">Özel Teklif Al</a>
+                            <a href="https://wa.me/905063626244?text=Merhaba,%20Tam%20Ekosistem%20kurumsal%20paket%20hakkında%20görüşmek%20istiyorum." target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2" data-i18n="btn_buy_3">Özel Teklif Al</a>
                         </div>
                     </div>
 
@@ -381,65 +406,61 @@
             </div>
         </section>
 
-        <!-- GÜVENCELERİMİZ (VERİ GÖÇÜ, UZAKTAN KURULUM, DONANIM TASARRUFU) -->
+        <!-- GÜVENCELERİMİZ -->
         <section id="guarantee" class="py-5 bg-light">
             <div class="container">
                 <div class="text-center mb-5">
-                    <span class="badge bg-success px-3 py-2 mb-2">Sıfır Risk Garantisi</span>
-                    <h2 class="fw-bold">Aklınızda Hiçbir Soru İşareti Kalmasın</h2>
-                    <p class="text-muted">Geçiş sürecini sizin için tamamen zahmetsiz ve güvenli kılıyoruz.</p>
+                    <span class="badge bg-success px-3 py-2 mb-2" data-i18n="g_badge">Sıfır Risk Garantisi</span>
+                    <h2 class="fw-bold" data-i18n="g_title">Aklınızda Hiçbir Soru İşareti Kalmasın</h2>
+                    <p class="text-muted" data-i18n="g_desc">Geçiş sürecini sizin için tamamen zahmetsiz ve güvenli kılıyoruz.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="p-4 bg-white rounded shadow-sm h-100 border">
                             <div class="icon-box text-success mb-3"><i class="fa-solid fa-database"></i></div>
-                            <h4 class="fw-bold">Sorunsuz Veri Göçü (Migration)</h4>
-                            <p class="text-muted">Eski programınızdaki veya Excel'deki binlerce ürün, müşteri ve veresiye kaydınızı yeni sisteme dakikalar içinde, <strong>sıfır veri kaybıyla</strong> taşıyoruz. Hiçbir şeyiniz yarım kalmaz.</p>
+                            <h4 class="fw-bold" data-i18n="g_1_title">Sorunsuz Veri Göçü (Migration)</h4>
+                            <p class="text-muted" data-i18n="g_1_desc">Eski programınızdaki veya Excel'deki binlerce ürün, müşteri ve veresiye kaydınızı yeni sisteme dakikalar içinde, sıfır veri kaybıyla taşıyoruz. Hiçbir şeyiniz yarım kalmaz.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-4 bg-white rounded shadow-sm h-100 border">
                             <div class="icon-box text-success mb-3"><i class="fa-solid fa-headset"></i></div>
-                            <h4 class="fw-bold">10 Dakikada Uzaktan Kurulum</h4>
-                            <p class="text-muted">Türkiye'nin neresinde olursanız olun, AnyDesk/TeamViewer ile bağlanıp programınızı, termal yazıcınızı ve barkod okuyucunuzu anahtar teslim çalışır hale getiriyoruz.</p>
+                            <h4 class="fw-bold" data-i18n="g_2_title">10 Dakikada Uzaktan Kurulum</h4>
+                            <p class="text-muted" data-i18n="g_2_desc">Türkiye'nin veya dünyanın neresinde olursanız olun, uzaktan bağlanıp programınızı, termal yazıcınızı ve barkod okuyucunuzu anahtar teslim çalışır hale getiriyoruz.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-4 bg-white rounded shadow-sm h-100 border">
                             <div class="icon-box text-success mb-3"><i class="fa-solid fa-laptop"></i></div>
-                            <h4 class="fw-bold">Mevcut Donanımınız Yeterli</h4>
-                            <p class="text-muted">Fahiş fiyatlı sunuculara veya özel dokunmatik cihazlara para ödemeyin. Dükkanınızda hali hazirda duran sıradan bir bilgisayarda tıkır tıkır çalışır.</p>
+                            <h4 class="fw-bold" data-i18n="g_3_title">Mevcut Donanımınız Yeterli</h4>
+                            <p class="text-muted" data-i18n="g_3_desc">Fahiş fiyatlı sunuculara veya özel dokunmatik cihazlara para ödemeyin. Dükkanınızda hali hazirda duran sıradan bir bilgisayarda tıkır tıkır çalışır.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ESNAF YORUMLARI / SOSYAL KANIT -->
+        <!-- ESNAF YORUMLARI -->
         <section id="testimonials" class="py-5 bg-white">
             <div class="container">
                 <div class="text-center mb-5">
-                    <span class="badge bg-success px-3 py-2 mb-2">Gerçek Deneyimler</span>
-                    <h2 class="fw-bold">Esnaf Ne Diyor?</h2>
-                    <p class="text-muted">Sistemimizi kullanan işletme sahiplerinin dilinden SaNu Soft deneyimi.</p>
+                    <span class="badge bg-success px-3 py-2 mb-2" data-i18n="rev_badge">Gerçek Deneyimler</span>
+                    <h2 class="fw-bold" data-i18n="rev_title">İşletme Sahipleri Ne Diyor?</h2>
+                    <p class="text-muted" data-i18n="rev_desc">Sistemimizi kullanan işletme sahiplerinin dilinden SaNu Soft deneyimi.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="testimonial-card shadow-sm">
-                            <div class="text-warning mb-2">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            </div>
-                            <p class="fst-italic text-dark">“İnternet koptuğunda eski programımız kilitleniyordu, müşteriye fiş kesemiyorduk ve kuyruk oluşuyordu. SaNu Soft’un yerel çalışması hayatımızı kurtardı. Artık internet gitse de satışımız durmuyor.”</p>
-                            <h6 class="fw-bold text-success mb-0">— Mehmet Usta / Yapı Market İşletmecisi</h6>
+                            <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="fst-italic text-dark" data-i18n="rev_1_text">“İnternet koptuğunda eski programımız kilitleniyordu, müşteriye fiş kesemiyorduk ve kuyruk oluşuyordu. SaNu Soft’un yerel çalışması hayatımızı kurtardı. Artık internet gitse de satışımız durmuyor.”</p>
+                            <h6 class="fw-bold text-success mb-0" data-i18n="rev_1_author">— Mehmet Usta / Yapı Market İşletmecisi</h6>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="testimonial-card shadow-sm">
-                            <div class="text-warning mb-2">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            </div>
-                            <p class="fst-italic text-dark">“Yazılımı kurdukları günden beri ne donma ne de karmaşık bir maliyetle karşılaştık. Dükkandan çıktığımda cep telefonumdan ciroyu ve stokları anlık görebilmek inanılmaz bir rahatlık sağladı.”</p>
-                            <h6 class="fw-bold text-success mb-0">— Ahmet Bey / Toptan Depo Sahibi</h6>
+                            <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="fst-italic text-dark" data-i18n="rev_2_text">“Yazılımı kurdukları günden beri ne donma ne de karmaşık bir maliyetle karşılaştık. Dükkandan çıktığımda cep telefonumdan ciroyu ve stokları anlık görebilmek inanılmaz bir rahatlık sağladı.”</p>
+                            <h6 class="fw-bold text-success mb-0" data-i18n="rev_2_author">— Ahmet Bey / Toptan Depo Sahibi</h6>
                         </div>
                     </div>
                 </div>
@@ -447,46 +468,390 @@
         </section>
     </main>
 
-    <!-- E-TİCARET BİLGİLENDİRME MODALI (POPUP) -->
+    <!-- E-TİCARET BİLGİLENDİRME MODALI -->
     <div id="ecommerce-info-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 15px;">
         <div style="background: white; border-radius: 16px; padding: 30px; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
-                <h3 style="margin: 0; color: #27ae60; font-weight: bold; font-size: 1.25rem;"><i class="fa-solid fa-store me-2"></i> SaNu Soft E-Ticaret ve Ekosistem Kılavuzu</h3>
+                <h3 style="margin: 0; color: #27ae60; font-weight: bold; font-size: 1.25rem;"><i class="fa-solid fa-store me-2"></i> <span data-i18n="modal_title">SaNu Soft E-Ticaret ve Ekosistem Kılavuzu</span></h3>
                 <button onclick="toggleEcommerceModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #e74c3c; font-weight: bold;">&times;</button>
             </div>
             <div style="line-height: 1.6; color: #555; text-align: left; font-size: 0.95rem;">
-                <p><strong>SaNu Soft</strong>, geleneksel POS yazılımlarının ötesine geçerek internet kesintilerinden etkilenmeyen hibrit mimarisi ve cep telefonu entegrasyonuyla işletmenize güç katar.</p>
+                <p data-i18n="modal_desc"><strong>SaNu Soft</strong>, geleneksel POS yazılımlarının ötesine geçerek internet kesintilerinden etkilenmeyen hibrit mimarisi ve cep telefonu entegrasyonuyla işletmenize güç katar.</p>
                 
-                <h5 style="color: #2c3e50; font-weight: bold; margin-top: 20px;">Neden SaNu Soft'u Seçmelisine?</h5>
+                <h5 style="color: #2c3e50; font-weight: bold; margin-top: 20px;" data-i18n="modal_subtitle">Neden SaNu Soft'u Seçmelisiniz?</h5>
                 <ul style="padding-left: 20px; list-style-type: disc;">
-                    <li><strong>İnternet Kesintilerine Son:</strong> Bulut programlar gibi internet gittiğinde asla kilitlenmez, yerelde çalışmaya devam eder.</li>
-                    <li><strong>Cepten 7/24 Yönetim:</strong> Firebase bildirimleriyle dükkandaki ciroyu ve işlemleri cebinizden takip edin.</li>
-                    <li><strong>Sıfır Gizli Maliyet:</strong> Fahiş yıllık aidatlar ve sürpriz güncelleme ücretleri barındırmaz.</li>
-                    <li><strong>Sektörel Esneklik:</strong> 5.7 cm fiş uyumu, irsaliye takibi ve depo yönetimini tek noktada buluşturur.</li>
+                    <li><strong data-i18n="modal_l1_title">İnternet Kesintilerine Son:</strong> <span data-i18n="modal_l1_desc">Bulut programlar gibi internet gittiğinde asla kilitlenmez, yerelde çalışmaya devam eder.</span></li>
+                    <li><strong data-i18n="modal_l2_title">Cepten 7/24 Yönetim:</strong> <span data-i18n="modal_l2_desc">Firebase bildirimleriyle dükkandaki ciroyu ve işlemleri cebinizden takip edin.</span></li>
+                    <li><strong data-i18n="modal_l3_title">Sıfır Gizli Maliyet:</strong> <span data-i18n="modal_l3_desc">Fahiş yıllık aidatlar ve sürpriz güncelleme ücretleri barındırmaz.</span></li>
+                    <li><strong data-i18n="modal_l4_title">Sektörel Esneklik:</strong> <span data-i18n="modal_l4_desc">5.7 cm fiş uyumu, irsaliye takibi ve depo yönetimini tek noktada buluşturur.</span></li>
                 </ul>
 
                 <div style="background: #e8f8f5; border: 1px solid #a3e4d7; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                    <i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> <strong>Özet:</strong> İşletmenizi yavaşlatan değil hızlandıran, yerli ve güvenilir tam kapsamlı otomasyon çözümüdür.
+                    <i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> <strong data-i18n="modal_footer_strong">Özet:</strong> <span data-i18n="modal_footer_text">İşletmenizi yavaşlatan değil hızlandıran, güvenilir tam kapsamlı otomasyon çözümüdür.</span>
                 </div>
             </div>
             <div style="text-align: right; margin-top: 25px;">
-                <button onclick="toggleEcommerceModal()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">Kapat</button>
+                <button onclick="toggleEcommerceModal()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;" data-i18n="modal_close">Kapat</button>
             </div>
         </div>
     </div>
 
+    <!-- AI WHATSAPP BOT ALTYAPI BİLGİLENDİRME ALANI -->
+    <section class="py-4 bg-dark text-white border-top border-secondary">
+        <div class="container text-center">
+            <p class="small text-muted mb-1"><i class="fa-solid fa-robot text-success me-1"></i> <strong>AI WhatsApp Asistan Mimarisi (Python / Flask Backend):</strong></p>
+            <code class="text-success small d-block overflow-auto p-2 bg-black rounded text-start" style="max-height: 120px;">
+# app.py (Örnek Python AI Bot Sunucusu)<br>
+from flask import Flask, request<br>
+import openai<br>
+app = Flask(__name__)<br>
+@app.route("/whatsapp-webhook", methods=["POST"])<br>
+def bot_reply():<br>
+    incoming = request.form.get('Body')<br>
+    # OpenAI ChatGPT entegrasyonu ile gelen mesaja otomatik Türkçe, EN ve ID cevap verilir.<br>
+    return "SaNu Soft AI Asistanı devrede.", 200
+            </code>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer id="contact">
         <div class="container text-center">
-            <p class="mb-2 fw-bold">SaNu Soft - Çok Platformlu Kurumsal Ekosistem</p>
-            <p class="text-muted small mb-3">İşletmenizin Güvenilir Dijital Çözüm Ortağı</p>
+            <p class="mb-2 fw-bold" data-i18n="footer_brand">SaNu Soft - Çok Platformlu Kurumsal Ekosistem</p>
+            <p class="text-muted small mb-3" data-i18n="footer_sub">İşletmenizin Güvenilir Dijital Çözüm Ortağı</p>
             <p class="text-muted small">&copy; 2026 Tüm Hakları Saklıdır.</p>
         </div>
     </footer>
 
-    /* <script> etiketleri */
+    <!-- Bootstrap JS & Çoklu Dil Yönetim Scripti -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const translations = {
+            tr: {
+                nav_why: "Neden Biz?",
+                nav_pricing: "Paketler & Fiyat",
+                nav_video: "Tanıtım Videosu",
+                nav_guarantee: "Güvencelerimiz",
+                nav_reviews: "Esnaf Yorumları",
+                nav_ecommerce_info: "E-Ticaret Bilgi",
+                hero_badge: "⚡ İnternet Kesintilerine Son Veren Yerli Sistem",
+                hero_title: "İnternet Kopsa Bile Satışa Devam Et: Esnafın Güvendiği Yeni Nesil POS",
+                hero_desc: "Ağır ve hantal kurumsal programlara fahiş paralar ödemeyin. İnternetten bağımsız çalışan, dükkanınızı cebinizden 7/24 yönetmenizi sağlayan esnaf dostu akıllı çözüm.",
+                hero_btn_pricing: "Paketleri ve Fiyatları İncele",
+                hero_btn_guide: "Özellik Kılavuzu",
+                box_subtitle: "Hibrit Mimari & Akıllı Yönetim",
+                badge_offline: "İnternetsiz Çalışma",
+                badge_mobile: "Cebinden Yönet",
+                badge_nomoney: "Gizli Maliyet Yok",
+                stat_1_title: "Hibrit Güç",
+                stat_1_desc: "İnternet kopunca kilitlenmez, yerelde çalışır.",
+                stat_2_title: "Cep'ten Takip",
+                stat_2_desc: "Firebase bildirimleriyle ciro cebinizde.",
+                stat_3_title: "Esnaf Uyumlu",
+                stat_3_desc: "5.7 cm fiş, sevk irsaliyesi ve stok yönetimi.",
+                stat_4_title: "Sabit Fiyat",
+                stat_4_desc: "Fahiş yıllık aidatlar ve gizli masraf yok.",
+                why_main_title: "Diğer Yazılımlardan Neden Daha İyiyiz?",
+                why_main_desc: "Esnafın sahada yaşadığı gerçek sorunlara nokta atışı çözümler getiriyoruz.",
+                why_1_title: "İnternet Kesintilerine Elveda",
+                why_1_desc: "Tamamen buluta bağımlı sistemler internet gittiğinde çöker. Senin sistemin yerel mimarisi sayesinde internet olmasa bile fiş kesmeye devam eder.",
+                why_2_title: "Sürpriz Maliyet & Aidat Yok",
+                why_2_desc: "Büyük firmalar gibi her yıl yenilenen fahiş bakım ücretleri talep etmiyoruz. Bütçenizi yormayan, şeffaf ve sürdürülebilir kullanım sunuyoruz.",
+                why_3_title: "7/24 Dükkanınız Cebinizde",
+                why_3_desc: "Patron dükkanda olmasa bile Firebase push bildirimleri ve web paneli sayesinde anlık ciroyu ve kritik stokları cebinden takip eder.",
+                vid_badge: "Tanıtım Filmi",
+                vid_title: "SaNu Soft ile İşinizi Kontrol Altına Alın",
+                vid_desc: "İnternet kopsa bile satışların nasıl devam ettiğini ve sistemi hemen izleyin.",
+                vid_caption: "İnternet Yoksa Bile Satış Devam: SaNu Soft ile işiniz her an kontrol altında.",
+                price_badge: "Esnaf Dostu Çözümler",
+                price_main_title: "İşletmenize Uygun Paketi Seçin",
+                price_main_desc: "Gizli maliyetler yok, ömürlük lisans ve esnek modül seçenekleri.",
+                p1_name: "Temel Kasa",
+                p1_desc: "Küçük esnaf ve tek dükkanlar için sade çözüm.",
+                p1_price: "Standart",
+                p1_period: " / Tek Seferlik Lisans",
+                p1_f1: "Masaüstü POS Otomasyonu",
+                p1_f2: "İnternetsiz Çalışma (Lokal DB)",
+                p1_f3: "5.7 cm Termal Fiş Yazdırma",
+                p1_f4: "Mobil Uygulama / Bildirim",
+                p1_f5: "Web Paneli & Raporlama",
+                btn_buy_1: "Bilgi Al / Satın Al",
+                p2_badge: "⭐ En Çok Tercih Edilen",
+                p2_name: "Pro Dükkan",
+                p2_desc: "Orta ölçekli yapı marketler ve depolar için.",
+                p2_price: "Önerilen",
+                p2_period: " / Profesyonel Paket",
+                p2_f1: "Temel Kasadaki Her Şey",
+                p2_f2: "Mobil Uygulama & Firebase Bildirim",
+                p2_f3: "Web Paneli (Canlı Ciro & Z Raporu)",
+                p2_f4: "Kritik Stok Uyarıları & WhatsApp PO",
+                p2_f5: "Anti-Fraud İade Denetimi",
+                btn_buy_2: "Hemen Başvur / WhatsApp",
+                p3_name: "Tam Ekosistem",
+                p3_desc: "Saha takibi ve e-ticaret yapan büyük yapılar.",
+                p3_price: "Kurumsal",
+                p3_period: " / Sınırsız Güç",
+                p3_f1: "Pro Paketteki Her Şey",
+                p3_f2: "Kurye & Saha Sevkiyat Paneli",
+                p3_f3: "AI Sesli Sipariş & OCR Reçete",
+                p3_f4: "3D / AR Ürün Görselleştirme",
+                p3_f5: "Öncelikli Teknik Destek",
+                btn_buy_3: "Özel Teklif Al",
+                g_badge: "Sıfır Risk Garantisi",
+                g_title: "Aklınızda Hiçbir Soru İşareti Kalmasın",
+                g_desc: "Geçiş sürecini sizin için tamamen zahmetsiz ve güvenli kılıyoruz.",
+                g_1_title: "Sorunsuz Veri Göçü (Migration)",
+                g_1_desc: "Eski programınızdaki veya Excel'deki binlerce ürün, müşteri ve veresiye kaydınızı yeni sisteme dakikalar içinde, sıfır veri kaybıyla taşıyoruz. Hiçbir şeyiniz yarım kalmaz.",
+                g_2_title: "10 Dakikada Uzaktan Kurulum",
+                g_2_desc: "Türkiye'nin veya dünyanın neresinde olursanız olun, uzaktan bağlanıp programınızı, termal yazıcınızı ve barkod okuyucunuzu anahtar teslim çalışır hale getiriyoruz.",
+                g_3_title: "Mevcut Donanımınız Yeterli",
+                g_3_desc: "Fahiş fiyatlı sunuculara veya özel dokunmatik cihazlara para ödemeyin. Dükkanınızda hali hazirda duran sıradan bir bilgisayarda tıkır tıkır çalışır.",
+                rev_badge: "Gerçek Deneyimler",
+                rev_title: "İşletme Sahipleri Ne Diyor?",
+                rev_desc: "Sistemimizi kullanan işletme sahiplerinin dilinden SaNu Soft deneyimi.",
+                rev_1_text: "“İnternet koptuğunda eski programımız kilitleniyordu, müşteriye fiş kesemiyorduk ve kuyruk oluşuyordu. SaNu Soft’un yerel çalışması hayatımızı kurtardı. Artık internet gitse de satışımız durmuyor.”",
+                rev_1_author: "— Mehmet Usta / Yapı Market İşletmecisi",
+                rev_2_text: "“Yazılımı kurdukları günden beri ne donma ne de karmaşık bir maliyetle karşılaştık. Dükkandan çıktığımda cep telefonumdan ciroyu ve stokları anlık görebilmek inanılmaz bir rahatlık sağladı.”",
+                rev_2_author: "— Ahmet Bey / Toptan Depo Sahibi",
+                modal_title: "SaNu Soft E-Ticaret ve Ekosistem Kılavuzu",
+                modal_desc: "SaNu Soft, geleneksel POS yazılımlarının ötesine geçerek internet kesintilerinden etkilenmeyen hibrit mimarisi ve cep telefonu entegrasyonuyla işletmenize güç katar.",
+                modal_subtitle: "Neden SaNu Soft'u Seçmelisiniz?",
+                modal_l1_title: "İnternet Kesintilerine Son:",
+                modal_l1_desc: "Bulut programlar gibi internet gittiğinde asla kilitlenmez, yerelde çalışmaya devam eder.",
+                modal_l2_title: "Cepten 7/24 Yönetim:",
+                modal_l2_desc: "Firebase bildirimleriyle dükkandaki ciroyu ve işlemleri cebinizden takip edin.",
+                modal_l3_title: "Sıfır Gizli Maliyet:",
+                modal_l3_desc: "Fahiş yıllık aidatlar ve sürpriz güncelleme ücretleri barındırmaz.",
+                modal_l4_title: "Sektörel Esneklik:",
+                modal_l4_desc: "5.7 cm fiş uyumu, irsaliye takibi ve depo yönetimini tek noktada buluşturur.",
+                modal_footer_strong: "Özet:",
+                modal_footer_text: "İşletmenizi yavaşlatan değil hızlandıran, güvenilir tam kapsamlı otomasyon çözümüdür.",
+                modal_close: "Kapat",
+                footer_brand: "SaNu Soft - Çok Platformlu Kurumsal Ekosistem",
+                footer_sub: "İşletmenizin Güvenilir Dijital Çözüm Ortağı"
+            },
+            en: {
+                nav_why: "Why Us?",
+                nav_pricing: "Packages & Pricing",
+                nav_video: "Intro Video",
+                nav_guarantee: "Our Guarantees",
+                nav_reviews: "Reviews",
+                nav_ecommerce_info: "E-Commerce Info",
+                hero_badge: "⚡ Local System Enduring Internet Outages",
+                hero_title: "Keep Selling Even If Internet Fails: Next-Gen POS Trusted by Merchants",
+                hero_desc: "Stop paying fortunes for bloated enterprise software. The smart, merchant-friendly solution that works offline and lets you manage your shop 24/7 from your phone.",
+                hero_btn_pricing: "View Packages & Pricing",
+                hero_btn_guide: "Feature Guide",
+                box_subtitle: "Hybrid Architecture & Smart Mgmt",
+                badge_offline: "Works Offline",
+                badge_mobile: "Manage from Phone",
+                badge_nomoney: "No Hidden Costs",
+                stat_1_title: "Hybrid Power",
+                stat_1_desc: "Doesn't freeze when internet drops; works locally.",
+                stat_2_title: "Mobile Tracking",
+                stat_2_desc: "Live revenue in your pocket with Firebase alerts.",
+                stat_3_title: "Merchant-Friendly",
+                stat_3_desc: "5.7cm thermal receipt, dispatch notes & stock mgmt.",
+                stat_4_title: "Fixed Price",
+                stat_4_desc: "No exorbitant annual fees or hidden charges.",
+                why_main_title: "Why Are We Better Than Others?",
+                why_main_desc: "We deliver pinpoint solutions to real-world operational challenges merchants face.",
+                why_1_title: "Goodbye Internet Outages",
+                why_1_desc: "Cloud-only systems crash when internet fails. Thanks to its local architecture, your system keeps printing receipts and selling even offline.",
+                why_2_title: "No Surprise Costs or Fees",
+                why_2_desc: "We don't demand massive yearly maintenance fees like big corporations. We offer transparent, budget-friendly, sustainable use.",
+                why_3_title: "Shop in Your Pocket 24/7",
+                why_3_desc: "Even when you're away, track instant revenue and critical stock levels right from your phone via Firebase push notifications and web dashboard.",
+                vid_badge: "Promo Video",
+                vid_title: "Take Control of Your Business with SaNu Soft",
+                vid_desc: "Watch how sales continue seamlessly even during internet blackouts.",
+                vid_caption: "Selling Continues Offline: Your business is always under control with SaNu Soft.",
+                price_badge: "Merchant-Friendly Solutions",
+                price_main_title: "Choose the Right Package for Your Business",
+                price_main_desc: "No hidden costs, lifetime license options, and flexible modules.",
+                p1_name: "Basic Cashier",
+                p1_desc: "Simple solution for small shops and single stores.",
+                p1_price: "Standard",
+                p1_period: " / One-Time License",
+                p1_f1: "Desktop POS Automation",
+                p1_f2: "Offline Operation (Local DB)",
+                p1_f3: "5.7cm Thermal Receipt Printing",
+                p1_f4: "Mobile App / Notifications",
+                p1_f5: "Web Dashboard & Reporting",
+                btn_buy_1: "Get Info / Buy",
+                p2_badge: "⭐ Most Popular",
+                p2_name: "Pro Store",
+                p2_desc: "For mid-sized hardware stores and warehouses.",
+                p2_price: "Recommended",
+                p2_period: " / Professional Package",
+                p2_f1: "Everything in Basic",
+                p2_f2: "Mobile App & Firebase Alerts",
+                p2_f3: "Web Panel (Live Revenue & Z-Report)",
+                p2_f4: "Critical Stock Alerts & WhatsApp PO",
+                p2_f5: "Anti-Fraud Refund Control",
+                btn_buy_2: "Apply Now / WhatsApp",
+                p3_name: "Full Ecosystem",
+                p3_desc: "For large operations with field delivery and e-commerce.",
+                p3_price: "Enterprise",
+                p3_period: " / Unlimited Power",
+                p3_f1: "Everything in Pro",
+                p3_f2: "Courier & Field Dispatch Panel",
+                p3_f3: "AI Voice Order & OCR Receipt Scanner",
+                p3_f4: "3D / AR Product Visualization",
+                p3_f5: "Priority Technical Support",
+                btn_buy_3: "Get Custom Offer",
+                g_badge: "Zero-Risk Guarantee",
+                g_title: "Leave No Doubts Behind",
+                g_desc: "We make the transition process completely effortless and secure for you.",
+                g_1_title: "Seamless Data Migration",
+                g_1_desc: "We migrate thousands of products, customer records, and credit ledger data from your old software or Excel in minutes with zero data loss.",
+                g_2_title: "10-Minute Remote Setup",
+                g_2_desc: "Wherever you are in the world, we connect remotely via AnyDesk/TeamViewer to get your POS, thermal printer, and barcode scanner running turnkey.",
+                g_3_title: "Your Existing Hardware is Enough",
+                g_3_desc: "Don't waste money on overpriced servers or special touch terminals. It runs smoothly on the ordinary PC you already have in your shop.",
+                rev_badge: "Real Experiences",
+                rev_title: "What Business Owners Say?",
+                rev_desc: "SaNu Soft experiences straight from the business owners who use our system.",
+                rev_1_text: "“When the internet dropped, our old software would freeze, and queues formed because we couldn't print receipts. SaNu Soft's offline capability saved our business. Sales never stop now.”",
+                rev_1_author: "— Mehmet Usta / Hardware Store Owner",
+                rev_2_text: "“Since installing the software, we've encountered zero freezes or complex costs. Being able to instantly track daily revenue and stock from my phone when away is an amazing relief.”",
+                rev_2_author: "— Ahmet Bey / Wholesale Warehouse Owner",
+                modal_title: "SaNu Soft E-Commerce & Ecosystem Guide",
+                modal_desc: "SaNu Soft goes beyond traditional POS software, empowering your business with offline-resilient hybrid architecture and mobile integration.",
+                modal_subtitle: "Why Choose SaNu Soft?",
+                modal_l1_title: "No More Internet Outages:",
+                modal_l1_desc: "Never freezes when internet drops like cloud software; keeps running locally.",
+                modal_l2_title: "24/7 Mobile Control:",
+                modal_l2_desc: "Track store revenue and operations right from your pocket with Firebase alerts.",
+                modal_l3_title: "Zero Hidden Costs:",
+                modal_l3_desc: "Contains no exorbitant annual subscription or surprise update fees.",
+                modal_l4_title: "Sector Flexibility:",
+                modal_l4_desc: "Combines 5.7cm receipt formatting, dispatch tracking, and warehouse control.",
+                modal_footer_strong: "Summary:",
+                modal_footer_text: "A reliable, full-featured automation solution that accelerates your business rather than slowing it down.",
+                modal_close: "Close",
+                footer_brand: "SaNu Soft - Multi-Platform Corporate Ecosystem",
+                footer_sub: "Your Reliable Digital Solution Partner"
+            },
+            id: {
+                nav_why: "Kenapa Kami?",
+                nav_pricing: "Paket & Harga",
+                nav_video: "Video Demo",
+                nav_guarantee: "Garansi",
+                nav_reviews: "Ulasan",
+                nav_ecommerce_info: "Info E-Commerce",
+                hero_badge: "⚡ Sistem Lokal yang Tahan Gangguan Internet",
+                hero_title: "Tetap Jualan Meski Internet Padam: POS Generasi Baru Pilihan Pedagang",
+                hero_desc: "Jangan bayar mahal untuk software perusahaan yang rumit. Solusi cerdas ramah pedagang yang tetap berjalan offline dan kelola toko 24/7 dari ponsel Anda.",
+                hero_btn_pricing: "Lihat Paket & Harga",
+                hero_btn_guide: "Panduan Fitur",
+                box_subtitle: "Arsitektur Hibrida & Manajemen Cerdas",
+                badge_offline: "Berjalan Offline",
+                badge_mobile: "Kelola dari HP",
+                badge_nomoney: "Tanpa Biaya Tersembunyi",
+                stat_1_title: "Daya Hibrida",
+                stat_1_desc: "Tidak macet saat internet mati; berjalan secara lokal.",
+                stat_2_title: "Pantau Ponsel",
+                stat_2_desc: "Omset langsung di genggaman dengan notifikasi Firebase.",
+                stat_3_title: "Ramah Toko",
+                stat_3_desc: "Struk termal 5.7cm, surat jalan & manajemen stok.",
+                stat_4_title: "Harga Pasti",
+                stat_4_desc: "Tanpa biaya langganan tahunan yang mahal.",
+                why_main_title: "Mengapa Kami Lebih Baik?",
+                why_main_desc: "Kami memberikan solusi tepat guna untuk masalah operasional nyata di lapangan.",
+                why_1_title: "Ucapkan Selamat Tinggal pada Internet Padam",
+                why_1_desc: "Sistem berbasis cloud murni akan lumpuh saat internet mati. Berkat arsitektur lokal, sistem Anda tetap mencetak struk dan berjualan walau tanpa internet.",
+                why_2_title: "Tanpa Biaya & Iuran Kejutan",
+                why_2_desc: "Kami tidak meminta biaya pemeliharaan tahunan yang mahal seperti korporasi besar. Penggunaan yang transparan, ramah anggaran, dan berkelanjutan.",
+                why_3_title: "Toko di Genggaman 24/7",
+                why_3_desc: "Bahkan saat Anda di luar, pantau omset instan dan stok kritis langsung dari ponsel Anda melalui push notification Firebase.",
+                vid_badge: "Video Promosi",
+                vid_title: "Kendalikan Bisnis Anda dengan SaNu Soft",
+                vid_desc: "Saksikan bagaimana penjualan tetap berjalan lancar meski internet padam.",
+                vid_caption: "Penjualan Tetap Berjalan Offline: Bisnis Anda selalu terkontrol dengan SaNu Soft.",
+                price_badge: "Solusi Ramah Pedagang",
+                price_main_title: "Pilih Paket yang Sesuai untuk Bisnis Anda",
+                price_main_desc: "Tanpa biaya tersembunyi, lisensi seumur hidup & modul fleksibel.",
+                p1_name: "Kasir Dasar",
+                p1_desc: "Solusi sederhana untuk toko kecil dan satu gerai.",
+                p1_price: "Standar",
+                p1_period: " / Lisensi Sekali Bayar",
+                p1_f1: "Otomasi POS Desktop",
+                p1_f2: "Operasi Offline (DB Lokal)",
+                p1_f3: "Pencetakan Struk Termal 5.7cm",
+                p1_f4: "Aplikasi Seluler / Notifikasi",
+                p1_f5: "Panel Web & Pelaporan",
+                btn_buy_1: "Info / Beli",
+                p2_badge: "⭐ Paling Populer",
+                p2_name: "Toko Pro",
+                p2_desc: "Untuk toko bangunan dan grosir skala menengah.",
+                p2_price: "Disarankan",
+                p2_period: " / Paket Profesional",
+                p2_f1: "Semua di Kasir Dasar",
+                p2_f2: "Aplikasi Seluler & Peringatan Firebase",
+                p2_f3: "Panel Web (Omset & Laporan Z)",
+                p2_f4: "Peringatan Stok & PO WhatsApp",
+                p2_f5: "Kontrol Retur Anti-Fraud",
+                btn_buy_2: "Daftar / WhatsApp",
+                p3_name: "Ekosistem Penuh",
+                p3_desc: "Untuk skala besar dengan pengiriman kurir dan e-commerce.",
+                p3_price: "Korporat",
+                p3_period: " / Kekuatan Tanpa Batas",
+                p3_f1: "Semua di Toko Pro",
+                p3_f2: "Panel Kurir & Pengiriman Lapangan",
+                p3_f3: "AI Voice Order & OCR Resep",
+                p3_f4: "Visualisasi Produk 3D / AR",
+                p3_f5: "Dukungan Teknis Prioritas",
+                btn_buy_3: "Dapatkan Penawaran",
+                g_badge: "Garansi Tanpa Risiko",
+                g_title: "Tidak Ada Keraguan Tersisa",
+                g_desc: "Kami membuat proses migrasi menjadi sangat mudah dan aman bagi Anda.",
+                g_1_title: "Migrasi Data Mulus",
+                g_1_desc: "Kami memindahkan ribuan produk, data pelanggan, dan catatan hutang dari software lama atau Excel Anda dalam hitungan menit tanpa kehilangan data.",
+                g_2_title: "Instalasi Jarak Jauh 10 Menit",
+                g_2_desc: "Di mana pun Anda berada, kami terhubung via AnyDesk/TeamViewer untuk menyiapkan POS, printer termal, dan pemindai barcode secara instan.",
+                g_3_title: "Perangkat Lama Anda Sudah Cukup",
+                g_3_desc: "Jangan buang uang untuk server mahal atau perangkat khusus. Software ini berjalan mulus di komputer biasa yang sudah ada di toko Anda.",
+                rev_badge: "Pengalaman Nyata",
+                rev_title: "Apa Kata Pemilik Usaha?",
+                rev_desc: "Pengalaman SaNu Soft langsung dari para pemilik bisnis yang menggunakan sistem kami.",
+                rev_1_text: "“Saat internet mati, software lama kami macet dan antrean mengular karena struk tidak bisa dicetak. Kemampuan offline SaNu Soft menyelamatkan bisnis kami. Penjualan tidak pernah berhenti.”",
+                rev_1_author: "— Pak Mehmet / Pemilik Toko Material",
+                rev_2_text: "“Sejak menginstal software ini, tidak ada macet atau biaya rumit. Bisa memantau omset harian dan stok dari ponsel saat di luar memberikan ketenangan luar biasa.”",
+                rev_2_author: "— Pak Ahmet / Pemilik Gudang Grosir",
+                modal_title: "Panduan E-Commerce & Ekosistem SaNu Soft",
+                modal_desc: "SaNu Soft melampaui software POS tradisional, memperkuat bisnis Anda dengan arsitektur hibrida tahan offline dan integrasi seluler.",
+                modal_subtitle: "Mengapa Memilih SaNu Soft?",
+                modal_l1_title: "Bebas Gangguan Internet:",
+                modal_l1_desc: "Tidak pernah macet saat internet mati seperti software cloud; tetap berjalan secara lokal.",
+                modal_l2_title: "Kontrol Seluler 24/7:",
+                modal_l2_desc: "Pantau omset toko dan operasi langsung dari saku Anda dengan notifikasi Firebase.",
+                modal_l3_title: "Tanpa Biaya Tersembunyi:",
+                modal_l3_desc: "Tidak ada iuran tahunan yang mahal atau biaya pembaruan kejutan.",
+                modal_l4_title: "Fleksibilitas Sektoral:",
+                modal_l4_desc: "Menggabungkan format struk 5.7cm, pelacakan surat jalan, dan kontrol gudang.",
+                modal_footer_strong: "Ringkasan:",
+                modal_footer_text: "Solusi otomasi lengkap dan andal yang mempercepat bisnis Anda, bukan memperlambatnya.",
+                modal_close: "Tutup",
+                footer_brand: "SaNu Soft - Ekosistem Korporat Multi-Platform",
+                footer_sub: "Mitra Solusi Digital yang Andal untuk Bisnis Anda"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            document.getElementById('htmlRoot').setAttribute('lang', lang);
+
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
         function toggleEcommerceModal() {
             const modal = document.getElementById('ecommerce-info-modal');
             if (modal.style.display === 'flex') {
